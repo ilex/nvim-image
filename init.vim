@@ -154,6 +154,14 @@ call plug#end()
             call CocAction('doHover')
         endif
     endfunction
+
+    " coc config
+    let g:coc_global_extensions = [
+                \ 'coc-snippets',
+                \ 'coc-pairs',
+                \ 'coc-json', 
+                \ 'coc-python',
+                \ ]
 " }}}
 
 " Searching {{{
@@ -182,7 +190,7 @@ augroup config_group
     autocmd BufRead .vimrc setlocal foldlevel=0
     autocmd BufWritePre *.py,*.php,*.js,*.txt,*.hs,*.java,*.md,*.rb,*.css,*.jinja2,*.html :call <SID>StripTrailingWhitespaces()
     " Highlight currently open buffer in NERDTree
-    autocmd BufEnter * call SyncTree()
+    autocmd BufEnter *.py,*.php,*.js,*.txt,*.hs,*.java,*.md,*.rb,*.css,*.jinja2,*.html call SyncTree()
 augroup END
 
 augroup python_group
@@ -241,7 +249,7 @@ function! IsNERDTreeOpen()
   return exists("t:NERDTreeBufName") && (bufwinnr(t:NERDTreeBufName) != -1)
 endfunction
 
-" Call NERDTreeFind iff NERDTree is active, current window contains a modifiable
+" Call NERDTreeFind if NERDTree is active, current window contains a modifiable
 " file, and we're not in vimdiff
 function! SyncTree()
   if &modifiable && IsNERDTreeOpen() && strlen(expand('%')) > 0 && !&diff
